@@ -1,24 +1,24 @@
 /*
- Given a 2-dimensional square matrix, rotate the matrix clockwise.
- Imagine concentric circles.
- Input from stdin: first line is length, subsequent lines are rows of the matrix.
- Output the matrix to stdout.
-
  Errors:
     First of all you completely failed to realize the objective of this problem.
     You needed to rotate the matrix, not shift it.
     So you spent all this time on shifting it, not realizing the the rotation implementation
     is actually a lot easier.
     Nonetheless shifting the matrix is pretty hard.
+
+     Given a 2-dimensional square matrix, rotate the matrix clockwise.
+     Imagine concentric circles.
+     Input from stdin: first line is length, subsequent lines are rows of the matrix.
+     Output the matrix to stdout.
 */
-public class MatrixRotation {
+public class MatrixRightShift {
     public static void main(String args[]) {
         int[][] m = new int[3][3];
         m[0] = new int[] {1, 2, 3};
         m[1] = new int[] {8, 9, 4};
         m[2] = new int[] {7, 6, 5};
 
-        printMatrix(rotateMatrix(m));
+        printMatrix(shiftRightMatrix(m));
         System.out.println();
 
         m = new int[5][5];
@@ -28,7 +28,7 @@ public class MatrixRotation {
         m[3] = new int[] {4, 7, 6, 5, 8};
         m[4] = new int[] {3, 2, 1, 0, 9};
 
-        printMatrix(rotateMatrix(m));
+        printMatrix(shiftRightMatrix(m));
         System.out.println();
 
         m = new int[6][6];
@@ -39,7 +39,7 @@ public class MatrixRotation {
         m[4] = new int[] {7, 0, 9, 8, 7, 0};
         m[5] = new int[] {6, 5, 4, 3, 2, 1};
 
-        printMatrix(rotateMatrix(m));
+        printMatrix(shiftRightMatrix(m));
     }
 
     public static void printMatrix(int[][] m) {
@@ -50,7 +50,7 @@ public class MatrixRotation {
             System.out.println();
         }
     }
-    public static int[][] rotateMatrix(int[][] m) {
+    public static int[][] shiftRightMatrix(int[][] m) {
         int length = m[0].length;
         int circles = length / 2;
         for (int x = 0; x < circles; x++) {
