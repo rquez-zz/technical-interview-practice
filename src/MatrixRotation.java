@@ -3,6 +3,13 @@
  Imagine concentric circles.
  Input from stdin: first line is length, subsequent lines are rows of the matrix.
  Output the matrix to stdout.
+
+ Errors:
+    First of all you completely failed to realize the objective of this problem.
+    You needed to rotate the matrix, not shift it.
+    So you spent all this time on shifting it, not realizing the the rotation implementation
+    is actually a lot easier.
+    Nonetheless shifting the matrix is pretty hard.
 */
 public class MatrixRotation {
     public static void main(String args[]) {
@@ -43,38 +50,54 @@ public class MatrixRotation {
             System.out.println();
         }
     }
-
     public static int[][] rotateMatrix(int[][] m) {
         int length = m[0].length;
         int circles = length / 2;
         for (int x = 0; x < circles; x++) {
-            int temp1 = 0, temp2 = 0 , temp3 = 0 , temp4 = 0;
+            int tempT = 0, tempR = 0, tempB = 0, tempL = 0;
+            // TOP EDGE
             for (int y = x; y < length - 1 - x; y++) {
                 if ((y-x) == 0) {
-                    temp1 = m[x][y + 1]; // top
-                    temp2 = m[y + 1][length - 1 - x]; // right edge
-                    temp3 = m[length - 1 - x][length - 2 - y]; // bottom edge
-                    temp4 = m[length - 2 - y][x]; // left
-
+                    tempT = m[x][y + 1];
                     m[x][y + 1] = m[x][y];
-                    m[y + 1][length - 1 - x] = m[y][length - 1 - x];
-                    m[length - 1 - x][length - 2 - y] = m[length - 1 - x][length - 1 - y];
-                    m[length - 2 - y][x] = m[length - 1 - y][x];
+                }
+                else {
+                    int subTemp = tempT;
+                    tempT = m[x][y + 1];
+                    m[x][y + 1] = subTemp;
+                }
+            }
+            // RIGHT EDGE
+            for (int y = x; y < length - 1 - x; y++) {
+                if ((y-x) == 0) {
+                    tempR = m[y + 1][length - 1 - x];
+                    m[y + 1][length - 1 - x] = tempT;
                 } else {
-                    int subTemp1 = m[x][y + 1];
-                    int subTemp2 = m[y + 1][length - 1 - x];
-                    int subTemp3 = m[length - 1 - x][length - 2 - y];
-                    int subTemp4 = m[length - 2 - y][x];
-
-                    m[x][y + 1] = temp1;
-                    m[y + 1][length - 1 - x] = temp2;
-                    m[length - 1 - x][length - 2 - y] = temp3;
-                    m[length - 2 - y][x] = temp4;
-
-                    temp1 = subTemp1;
-                    temp2 = subTemp2;
-                    temp3 = subTemp3;
-                    temp4 = subTemp4;
+                    int subTemp = tempR;
+                    tempR = m[y + 1][length - 1 - x];
+                    m[y + 1][length - 1 - x] = subTemp;
+                }
+            }
+            // BOTTOM EDGE
+            for (int y = x; y < length - 1 - x; y++) {
+                if ((y-x) == 0) {
+                    tempB = m[length - 1 - x][length - 2 - y];
+                    m[length - 1 - x][length - 2 - y] = tempR;
+                } else {
+                    int subTemp = tempB;
+                    tempB = m[length - 1 - x][length - 2 - y];
+                    m[length - 1 - x][length - 2 - y] = subTemp;
+                }
+            }
+            // LEFT EDGE
+            for (int y = x; y < length - 1 - x; y++) {
+                if ((y-x) == 0) {
+                    tempL = m[length- 2 - y][x];
+                    m[length - 2 - y][x] = tempB;
+                } else {
+                    int subTemp = tempL;
+                    tempL = m[length - 2 - y][x];
+                    m[length - 2 - y][x] = subTemp;
                 }
             }
         }
