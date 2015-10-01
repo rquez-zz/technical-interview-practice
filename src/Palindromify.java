@@ -15,7 +15,52 @@ public class Palindromify {
         String[] array1 = {"abcd", "efgh", "ijkl"};
         String[] array2 = {"aabbc", "ddee", "fffff", "aabbcccck", "aabbcccc"};
         //palindromifyArray(array1);
-        palindromifyArray(array2);
+        palindromifyArray2(array1);
+    }
+
+    public static int palindromifyArray2(String[] array) {
+        for (int i = 0; i < array.length; i++) { // Current String
+            boolean exceptionFound = false;
+            for (int j = 0; j < array[i].length() / 2; j++) { // Current Char in String
+                boolean foundMatch = false;
+                for (int k = array[i].length() - j - 1; k > j; k--) {
+                    if (array[i].charAt(k) == array[i].charAt(j)) {
+                        foundMatch = true;
+                        int l = array[i].length() - j - 1;
+                        if (k != l) {
+                            array[i] = swap(array[i], l, k);
+                        }
+                    }
+                }
+                if (array[i].length() % 2 != 0 && !foundMatch) {
+                    if (!exceptionFound) {
+                        exceptionFound = true;
+                        int y = array[i].length() - 1 - j;
+                        for (int x = j + 1; x < y; x++) {
+                            if (array[i].charAt(x) == array[i].charAt(y)) {
+                                array[i] = swap(array[i], x, j);
+                                foundMatch = true;
+                            }
+                        }
+                        if (!foundMatch)
+                            return -1;
+                    } else
+                        return -1;
+                } else if (array[i].length() % 2 == 0 && !foundMatch)
+                    return -1;
+            }
+        }
+
+        printArray(array);
+        return 0;
+    }
+
+    public static String swap(String string, int x, int y) {
+        char[] cArray = string.toCharArray();
+        char cTemp = cArray[x];
+        cArray[x] = cArray[y];
+        cArray[y] = cTemp;
+        return new String(cArray);
     }
 
     public static int palindromifyArray(String[] array) {
@@ -29,7 +74,6 @@ public class Palindromify {
             else
                 return -1;
         }
-        printArray(array);
         return 0;
     }
     public static void printArray(String[] array) {
