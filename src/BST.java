@@ -16,21 +16,18 @@ public class BST {
     }
 
     public void insert(int data) { insert(this.root, data); }
-    private Node insert(Node node, int data) {
-       if (node == null) {
-           Node newNode = new Node(data, null);
-           return newNode;
-       }
-        if (node.getData() > data) {
+    public Node insert(Node node, int data) {
+        if (node == null) node = new Node(data);
+        else if (node.getData() > data) {
             node.setLeft(insert(node.getLeft(), data));
-        } else {
+        } else if (node.getData() < data){
             node.setRight(insert(node.getRight(), data));
-        }
+        } else { }
         return node;
     }
 
     public void remove(int data) { this.root = remove(this.root, data); }
-    private Node remove(Node node, int data) {
+    public Node remove(Node node, int data) {
         if (node.getData() == data) {
             if(node.getLeft() != null && node.getRight() != null) {
                 Node replacement = node.getRight();
@@ -79,11 +76,18 @@ public class BST {
         return node.getData() + " " + preorder(node.getLeft()) + preorder(node.getRight());
     }
 
+    public Node getRoot() {
+        return this.root;
+    }
+    public void setRoot(Node node) {
+        this.root = node;
+    }
     public static class UnitTest {
         @Test
         public void testInsert() {
-            Node node = new Node(10, null);
+            Node node = new Node(10);
             BST tree = new BST(node);
+            tree.insert(5);
             tree.insert(5);
             tree.insert(15);
             tree.insert(20);
@@ -95,7 +99,7 @@ public class BST {
         }
         @Test
         public void testRemove() {
-            Node node = new Node(10, null);
+            Node node = new Node(10);
             BST tree = new BST(node);
             tree.insert(5);
             tree.insert(15);
