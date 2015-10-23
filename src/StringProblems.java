@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -102,6 +103,43 @@ public class StringProblems {
         }
         return true;
     }
+
+    /*
+    Implement a method to perform basic string compression using the counts of repeated characters.
+    For example, the string aabcccccaaa would become a2blc5a3. If the "compressed" string would not become smaller
+    than the original string, your method should return the original string.
+    */
+    // O(n) time, O(n) space
+    public static String compress(String s) {
+        if (s.length() < 3) { return s; }
+
+        StringBuffer sb = new StringBuffer();
+
+        char temp = s.charAt(0);
+        int count = 1;
+        sb.append(temp);
+
+        for (int i = 1; i < s.length(); i++) {
+            if (temp != s.charAt(i)) {
+                sb.append(count);
+                count = 1;
+                temp = s.charAt(i);
+                sb.append(temp);
+            } else {
+                count++;
+                if (i == s.length() - 1) {
+                    sb.append(count);
+                }
+            }
+        }
+
+        String result = sb.toString();
+        if (result.length() > s.length())
+            return s;
+        else
+            return result;
+    }
+
     public static class UnitTest {
         @Test
         public void testHasUniqueCharacters() {
@@ -130,6 +168,13 @@ public class StringProblems {
             assertTrue(isPermutationFrequencyTable("hello", "elloh"));
             assertTrue(!isPermutationFrequencyTable("hellt", "elloh"));
             assertTrue(!isPermutationFrequencyTable("hllo", "elloh"));
+        }
+
+        @Test
+        public void testCompress() {
+            assertEquals("a2b1c5a4", compress("aabcccccaaaa"));
+            assertEquals("abcd", compress("abcd"));
+            assertEquals("a5b5c1d1r1f1a6c5", compress("aaaaabbbbbcdrfaaaaaaccccc"));
         }
     }
 }
