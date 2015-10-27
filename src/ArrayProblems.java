@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertArrayEquals;
 
 /**
@@ -94,6 +96,60 @@ public class ArrayProblems {
 
         return matrix;
     }
+    //Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0
+    // O(mn + kn) time, O(1) space
+    public static int[][] zeroOutMatrix(int[][] matrix) {
+        ArrayList<Integer[]> list = new ArrayList();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == 0) {
+                    list.add(new Integer[]{i, j});
+                }
+            }
+        }
+        for (Integer[] pair : list) {
+            int row = pair[0];
+            int col = pair[1];
+            int size = Math.max(matrix[row].length, matrix.length);
+            for (int i = 0; i < size; i++) {
+                if (matrix[row].length > i)
+                    matrix[row][i] = 0;
+                if (matrix.length > i)
+                    matrix[i][col] = 0;
+            }
+        }
+        return matrix;
+    }
+    // O(mn) time, O(n+m) space
+    public static int[][] zeroOutMatrixFast(int[][] matrix) {
+        boolean[] isRowZeroed = new boolean[matrix.length];
+        boolean[] isColZeroed = new boolean[matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            if (isRowZeroed[i]) {
+                continue;
+            }
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (isRowZeroed[i]) {
+                    break;
+                }
+                if (isColZeroed[j]) {
+                    continue;
+                }
+                if (matrix[i][j] == 0) {
+                    isRowZeroed[i] = true;
+                    isColZeroed[j] = true;
+                    int size = Math.max(matrix[i].length, matrix.length);
+                    for (int k = 0; k < size; k++) {
+                        if (matrix[i].length > k)
+                            matrix[i][k] = 0;
+                        if (matrix.length > k)
+                            matrix[k][j] = 0;
+                    }
+                }
+            }
+        }
+        return matrix;
+    }
     public static class UnitTest {
 
         @Test
@@ -105,6 +161,22 @@ public class ArrayProblems {
             assertArrayEquals(matrixRotatedRight, rotateMatrixInPlace(matrix, true));
             matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
             assertArrayEquals(matrixRotatedLeft, rotateMatrixInPlace(matrix, false));
+        }
+
+        @Test
+        public void testZeroOutMatrix() {
+            int[][] matrix = new int[][]{{1,2,3},{4,0,6},{7,8,9}};
+            int[][] matrixZeroed = new int[][]{{1,0,3},{0,0,0},{7,0,9}};
+            assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
+            matrix = new int[][]{{1,2,3},{4,0,6},{0,8,9}};
+            matrixZeroed = new int[][]{{0,0,3},{0,0,0},{0,0,0}};
+            assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
+            matrix = new int[][]{{1,2,3},{4,0,6},{0,8,9}};
+            matrixZeroed = new int[][]{{0,0,3},{0,0,0},{0,0,0}};
+            assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
+            matrix = new int[][]{{1,0,3,4,5}, {6,7,0,9,10}, {11,12,0,14,15}};
+            matrixZeroed = new int[][]{{0,0,0,0,0}, {0,0,0,0,0}, {11,0,0,14,15}};
+            assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
         }
     }
 }
