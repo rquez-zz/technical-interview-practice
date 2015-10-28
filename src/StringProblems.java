@@ -140,6 +140,43 @@ public class StringProblems {
             return result;
     }
 
+    /*
+    Assume you have a method isSubstring which checks if one word is a substring of another.
+    Given two strings, s1 and s2, write code to check if s2 is a rotation of s1, using only one call to
+    isSubstring (e.g., "waterbottle" is a rotation of "erbottlewat")
+     */
+    // O(2n) time, O(n) space
+    public static boolean isRotation(String s1, String s2) {
+
+        if (s1.length() != s2.length()) { return false; }
+        int length = s1.length();
+
+        char c = s1.charAt(0);
+        int cIndex = s2.indexOf(c);
+        if (cIndex == -1) { return false; }
+
+        StringBuffer sb = new StringBuffer();
+        int modIndex = cIndex + 1;
+        while(sb.length() < length - 1) {
+            sb.append(s2.charAt(modIndex % length));
+            modIndex++;
+        }
+
+        return isSubstring(s1, sb.toString());
+    }
+    // O(n) time, O(n) space
+    public static boolean isRotationFaster(String s1, String s2) {
+        if (s1.length() == s2.length()) {
+            return isSubstring(s1+s1, s2);
+        } else {
+            return false;
+        }
+    }
+    public static boolean isSubstring(String s1, String sub) {
+        if (s1.indexOf(sub) != -1) return true;
+        else return false;
+    }
+
     public static class UnitTest {
         @Test
         public void testHasUniqueCharacters() {
@@ -175,6 +212,18 @@ public class StringProblems {
             assertEquals("a2b1c5a4", compress("aabcccccaaaa"));
             assertEquals("abcd", compress("abcd"));
             assertEquals("a5b5c1d1r1f1a6c5", compress("aaaaabbbbbcdrfaaaaaaccccc"));
+        }
+
+        @Test
+        public void testIsRotation() {
+            assertTrue(isRotation("waterbottle", "bottlewater"));
+            assertTrue(isRotation("Hello", "oHell"));
+            assertTrue(isRotation("waterbottle", "terbottlewa"));
+            assertTrue(!isRotation("waterbottel", "terbottlewa"));
+            assertTrue(isRotationFaster("waterbottle", "bottlewater"));
+            assertTrue(isRotationFaster("Hello", "oHell"));
+            assertTrue(isRotationFaster("waterbottle", "terbottlewa"));
+            assertTrue(!isRotationFaster("waterbottel", "terbottlewa"));
         }
     }
 }
