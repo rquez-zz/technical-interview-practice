@@ -32,4 +32,16 @@ public class Node {
     public void setLeft(Node node) { this.left = node; }
 
     public void setRight(Node node) { this.right = node; }
+
+    public static boolean isEqual(Node node1, Node node2) {
+        if (node1 == null && node2 == null) {
+            return true;
+        } else if (node1 == null || node2 == null) {
+            return false;
+        } if (node1.getData() == node2.getData()) {
+            return isEqual(node1.getNext(), node2.getNext());
+        } else {
+            return false;
+        }
+    }
 }
