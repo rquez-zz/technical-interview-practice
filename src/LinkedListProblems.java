@@ -112,6 +112,47 @@ public class LinkedListProblems {
         return p1;
     }
 
+    /*
+       Write code to partition a linked list around a value x, such that all nodes less than x come
+       before all nodes greater than or equal to x.
+     */
+    // O(n) time, O(1) space
+    public static Node paritionListOnX(Node head, int x) {
+        Node LList = null;
+        Node RList = null;
+        Node LListHead = null;
+        Node RListHead = null;
+
+        while (head != null) {
+            Node next = head.getNext();
+            head.setNext(null);
+            if (head.getData() < x) {
+                if (LList != null) {
+                    LList.setNext(head);
+                    LList = LList.getNext();
+                } else {
+                    LList = head;
+                    LListHead = head;
+                }
+            } else {
+                if (RList != null) {
+                    RList.setNext(head);
+                    RList = RList.getNext();
+                } else {
+                    RList = head;
+                    RListHead = head;
+                }
+            }
+            head = next;
+        }
+        if (LList != null) {
+            LList.setNext(RListHead);
+            return LListHead;
+        } else {
+            return RListHead;
+        }
+    }
+
     public static class UnitTest {
         Node head;
 
@@ -180,6 +221,109 @@ public class LinkedListProblems {
             assertTrue(Node.isEqual(b, kthFromLastFaster(test, 2)));
             assertTrue(Node.isEqual(a, kthFromLastFaster(test, 3)));
             assertTrue(Node.isEqual(test, kthFromLastFaster(test, 4)));
+        }
+
+        @Test
+        public void testParitionOnX() {
+
+            head = new Node(5);
+            Node a = new Node(7);
+            Node b = new Node(3);
+            Node c = new Node(2);
+            Node d = new Node(1);
+            Node e = new Node(11);
+            Node f = new Node(8);
+            Node g = new Node(9);
+            head.setNext(a);
+            a.setNext(b);
+            b.setNext(c);
+            c.setNext(d);
+            d.setNext(e);
+            e.setNext(f);
+            f.setNext(g);
+            Node test = new Node(5);
+            Node at = new Node(3);
+            Node bt = new Node(2);
+            Node ct = new Node(1);
+            Node dt = new Node(7);
+            Node et = new Node(11);
+            Node ft = new Node(8);
+            Node gt = new Node(9);
+            test.setNext(at);
+            at.setNext(bt);
+            bt.setNext(ct);
+            ct.setNext(dt);
+            dt.setNext(et);
+            et.setNext(ft);
+            ft.setNext(gt);
+
+            assertTrue(Node.isEqual(test, paritionListOnX(head, 6)));
+
+            head = new Node(1);
+            a = new Node(1);
+            b = new Node(1);
+            c = new Node(1);
+            d = new Node(1);
+            e = new Node(1);
+            f = new Node(8);
+            g = new Node(1);
+            head.setNext(a);
+            a.setNext(b);
+            b.setNext(c);
+            c.setNext(d);
+            d.setNext(e);
+            e.setNext(f);
+            f.setNext(g);
+            test = new Node(1);
+            at = new Node(1);
+            bt = new Node(1);
+            ct = new Node(1);
+            dt = new Node(1);
+            et = new Node(1);
+            ft = new Node(1);
+            gt = new Node(8);
+            test.setNext(at);
+            at.setNext(bt);
+            bt.setNext(ct);
+            ct.setNext(dt);
+            dt.setNext(et);
+            et.setNext(ft);
+            ft.setNext(gt);
+
+            assertTrue(Node.isEqual(test, paritionListOnX(head, 6)));
+
+            head = new Node(1);
+            a = new Node(1);
+            b = new Node(1);
+            c = new Node(1);
+            d = new Node(1);
+            e = new Node(1);
+            f = new Node(1);
+            g = new Node(1);
+            head.setNext(a);
+            a.setNext(b);
+            b.setNext(c);
+            c.setNext(d);
+            d.setNext(e);
+            e.setNext(f);
+            f.setNext(g);
+            test = new Node(1);
+            at = new Node(1);
+            bt = new Node(1);
+            ct = new Node(1);
+            dt = new Node(1);
+            et = new Node(1);
+            ft = new Node(1);
+            gt = new Node(1);
+            test.setNext(at);
+            at.setNext(bt);
+            bt.setNext(ct);
+            ct.setNext(dt);
+            dt.setNext(et);
+            et.setNext(ft);
+            ft.setNext(gt);
+
+            assertTrue(Node.isEqual(test, paritionListOnX(head, 6)));
         }
     }
 }
