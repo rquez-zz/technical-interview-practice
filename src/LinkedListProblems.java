@@ -153,6 +153,112 @@ public class LinkedListProblems {
         }
     }
 
+    /*
+    You have two numbers represented by a linked list, where each node contains a single digit.
+    The digits are stored in reverse order, such that the 1's digit is at the head of the list.
+    Write a function that adds the two numbers and returns the sum as a linked list.
+     */
+    // O(n) time, O(n + 1) space
+    public static Node sumListsReverse(Node aList, Node bList) {
+
+        Node sum;
+        Node prev = null;
+        Node sumHead = null;
+        int r = 0;
+        boolean first = true;
+        while( aList != null || bList != null) {
+            int a = 0, b = 0;
+
+            if (aList != null)
+                a = aList.getData();
+            if (bList != null)
+                b = bList.getData();
+
+            int i = a + b + r;
+            sum = new Node(i % 10);
+            r = i / 10;
+
+            if (first)
+                sumHead = sum;
+            else
+                prev.setNext(sum);
+            prev = sum;
+            sum = sum.getNext();
+            first = false;
+
+            if (aList != null)
+                aList = aList.getNext();
+            if (bList != null)
+                bList = bList.getNext();
+        }
+
+        if (r == 1) {
+            sum = new Node(r);
+            prev.setNext(sum);
+        }
+
+        return sumHead;
+    }
+
+    public static Node sumListsReverseRecursive(Node aList, Node bList, int r) {
+        if (aList == null && bList == null) {
+            if (r == 1)
+                return new Node(r);
+            else
+                return null;
+        }
+
+        int a = 0, b = 0;
+        Node aNext = null, bNext = null;
+        if (aList != null) {
+            a = aList.getData();
+            aNext = aList.getNext();
+        }
+        if (bList != null) {
+            b = bList.getData();
+            bNext = bList.getNext();
+        }
+
+        int i = a + b + r;
+        Node node = new Node(i % 10);
+
+        node.setNext(sumListsReverseRecursive(aNext, bNext, i / 10));
+        return node;
+    }
+
+
+    public static Node sumListsForwardRecursive(Node aList, Node bList) {
+        if (aList.getNext() == null && bList.getNext() == null) {
+            return new Node(aList.getData() + bList.getData());
+        }
+
+        Node aNext = aList, bNext = bList;
+        int a = 0, b = 0;
+        if (aList.getNext() != null) {
+            aNext = aList.getNext();
+            a = aList.getData();
+        }
+        if (bList.getNext() != null) {
+            bNext = bList.getNext();
+            b = bList.getData();
+        }
+
+        Node node = new Node(0);
+        node.setNext(sumListsForwardRecursive(aNext, bNext));
+
+        int prevSum = 0;
+        if (node.getNext() != null) {
+            prevSum = node.getNext().getData();
+            if (prevSum >= 10) {
+                node.getNext().setData(prevSum % 10);
+            }
+        }
+
+        int i = a + b + (prevSum / 10);
+        node.setData(i);
+
+        return node;
+    }
     public static class UnitTest {
         Node head;
 
@@ -325,5 +431,70 @@ public class LinkedListProblems {
 
             assertTrue(Node.isEqual(test, paritionListOnX(head, 6)));
         }
+
+        @Test
+        public void testSumListReverse() {
+            Node aList= new Node(7);
+            Node a = new Node(8);
+            Node b = new Node(5);
+            aList.setNext(a);
+            a.setNext(b);
+
+            Node bList = new Node(2);
+            Node c = new Node(2);
+            Node d = new Node(9);
+            bList.setNext(c);
+            c.setNext(d);
+
+            Node sum = new Node(9);
+            Node at = new Node(0);
+            Node bt = new Node(5);
+            Node ct = new Node(1);
+            sum.setNext(at);
+            at.setNext(bt);
+            bt.setNext(ct);
+
+            assertTrue(Node.isEqual(sum, sumListsReverseRecursive(aList, bList, 0)));
+            assertTrue(Node.isEqual(sum, sumListsReverse(aList, bList)));
+
+            aList= new Node(1);
+
+            bList = new Node(2);
+            c = new Node(2);
+            d = new Node(9);
+            bList.setNext(c);
+            c.setNext(d);
+
+            sum = new Node(3);
+            at = new Node(2);
+            bt = new Node(9);
+            sum.setNext(at);
+            at.setNext(bt);
+            bt.setNext(null);
+
+            assertTrue(Node.isEqual(sum, sumListsReverseRecursive(aList, bList, 0)));
+            assertTrue(Node.isEqual(sum, sumListsReverse(aList, bList)));
+
+            aList= new Node(8);
+            aList.setNext(null);
+
+            bList = new Node(9);
+            c = new Node(2);
+            d = new Node(2);
+            bList.setNext(c);
+            c.setNext(d);
+            d.setNext(null);
+
+            sum = new Node(9);
+            at = new Node(3);
+            bt = new Node(0);
+            sum.setNext(at);
+            at.setNext(bt);
+            bt.setNext(null);
+
+            assertTrue(Node.isEqual(sum, sumListsForwardRecursive(aList, bList)));
+        }
+
+
     }
 }
