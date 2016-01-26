@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -157,26 +158,26 @@ public class ArrayProblems {
             int[][] matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
             int[][] matrixRotatedRight = new int[][]{{7,4,1},{8,5,2},{9,6,3}};
             int[][] matrixRotatedLeft = new int[][]{{3,6,9},{2,5,8},{1,4,7}};
-            assertArrayEquals(matrixRotatedRight, rotateMatrix(matrix, true));
-            assertArrayEquals(matrixRotatedRight, rotateMatrixInPlace(matrix, true));
+            Assert.assertArrayEquals(matrixRotatedRight, rotateMatrix(matrix, true));
+            Assert.assertArrayEquals(matrixRotatedRight, rotateMatrixInPlace(matrix, true));
             matrix = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
-            assertArrayEquals(matrixRotatedLeft, rotateMatrixInPlace(matrix, false));
+            Assert.assertArrayEquals(matrixRotatedLeft, rotateMatrixInPlace(matrix, false));
         }
 
         @Test
         public void testZeroOutMatrix() {
             int[][] matrix = new int[][]{{1,2,3},{4,0,6},{7,8,9}};
             int[][] matrixZeroed = new int[][]{{1,0,3},{0,0,0},{7,0,9}};
-            assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
+            Assert.assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
             matrix = new int[][]{{1,2,3},{4,0,6},{0,8,9}};
             matrixZeroed = new int[][]{{0,0,3},{0,0,0},{0,0,0}};
-            assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
+            Assert.assertArrayEquals(matrixZeroed, zeroOutMatrix(matrix));
             matrix = new int[][]{{1,2,3},{4,0,6},{0,8,9}};
             matrixZeroed = new int[][]{{0,0,3},{0,0,0},{0,0,0}};
-            assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
+            Assert.assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
             matrix = new int[][]{{1,0,3,4,5}, {6,7,0,9,10}, {11,12,0,14,15}};
             matrixZeroed = new int[][]{{0,0,0,0,0}, {0,0,0,0,0}, {11,0,0,14,15}};
-            assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
+            Assert.assertArrayEquals(matrixZeroed, zeroOutMatrixFast(matrix));
         }
     }
 }

@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -115,16 +116,16 @@ public class Graph {
         public void testDFS() {
 
             Graph graph = new Graph(matrix);
-            assertEquals("0 1 3 2 4 ", graph.DFS(0));
-            assertEquals("3 1 0 2 4 ", graph.DFS(3));
-            assertEquals("3 1 0 2 4 ", graph.DFS(3, new boolean[5]));
-            assertEquals("0 1 3 2 4 ", graph.DFS(0, new boolean[5]));
+            Assert.assertEquals("0 1 3 2 4 ", graph.DFS(0));
+            Assert.assertEquals("3 1 0 2 4 ", graph.DFS(3));
+            Assert.assertEquals("3 1 0 2 4 ", graph.DFS(3, new boolean[5]));
+            Assert.assertEquals("0 1 3 2 4 ", graph.DFS(0, new boolean[5]));
         }
         @Test
         public void testBFS() {
 
             Graph graph = new Graph(matrix);
-            assertEquals("0 1 2 3 4 ", graph.BFS(0));
+            Assert.assertEquals("0 1 2 3 4 ", graph.BFS(0));
 
         }
     }

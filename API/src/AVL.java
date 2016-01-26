@@ -120,22 +120,22 @@ public class AVL extends BST{
             AVL tree1 = new AVL(new AVLNode(10));
             tree1.insert(100);
             tree1.insert(800);
-            assertEquals(true, tree1.isBalanced());
+            Assert.assertEquals(true, tree1.isBalanced());
 
             AVL tree2 = new AVL(new AVLNode(100));
             tree2.insert(50);
             tree2.insert(25);
-            assertEquals(true, tree2.isBalanced());
+            Assert.assertEquals(true, tree2.isBalanced());
 
             AVL tree3 = new AVL(new AVLNode(100));
             tree3.insert(50);
             tree3.insert(75);
-            assertEquals(true, tree3.isBalanced());
+            Assert.assertEquals(true, tree3.isBalanced());
 
             AVL tree4 = new AVL(new AVLNode(10));
             tree4.insert(100);
             tree4.insert(75);
-            assertEquals(true, tree4.isBalanced());
+            Assert.assertEquals(true, tree4.isBalanced());
 
             AVL tree5 = new AVL(new AVLNode(10));
             tree5.insert(100);
@@ -143,7 +143,7 @@ public class AVL extends BST{
             tree5.insert(25);
             tree5.insert(1);
             tree5.insert(1000);
-            assertEquals(true, tree5.isBalanced());
+            Assert.assertEquals(true, tree5.isBalanced());
         }
 
 
@@ -155,7 +155,7 @@ public class AVL extends BST{
             tree1.insert(800);
             tree1.insert(5);
             tree1.remove(800);
-            assertEquals(true, tree1.isBalanced());
+            Assert.assertEquals(true, tree1.isBalanced());
         }
     }
 }

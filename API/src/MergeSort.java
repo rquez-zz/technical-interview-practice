@@ -57,7 +57,7 @@ public class MergeSort {
     public static class UnitTest {
         @Test
         public void testSort() {
-            assertArrayEquals(new int[]{1,2,3,4}, sort(new int[]{2,4,1,3}));
+            Assert.assertArrayEquals(new int[]{1,2,3,4}, sort(new int[]{2,4,1,3}));
             /*
             assertArrayEquals(new int[]{1,2,3,4,5}, sort(new int[]{2,4,5,1,3}));
             assertArrayEquals(new int[]{1,1,1,1,5}, sort(new int[]{5,1,1,1,1}));

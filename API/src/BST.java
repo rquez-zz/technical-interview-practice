@@ -93,9 +93,9 @@ public class BST {
             tree.insert(20);
             tree.insert(100);
             tree.insert(1);
-            assertEquals("1 5 10 15 20 100 ", tree.inorder());
-            assertEquals("10 5 1 15 20 100 ", tree.preorder());
-            assertEquals("1 5 100 20 15 10 ", tree.postorder());
+            Assert.assertEquals("1 5 10 15 20 100 ", tree.inorder());
+            Assert.assertEquals("10 5 1 15 20 100 ", tree.preorder());
+            Assert.assertEquals("1 5 100 20 15 10 ", tree.postorder());
         }
         @Test
         public void testRemove() {
@@ -107,11 +107,11 @@ public class BST {
             tree.insert(100);
             tree.insert(1);
             tree.remove(1);
-            assertEquals("5 10 15 20 100 ", tree.inorder());
+            Assert.assertEquals("5 10 15 20 100 ", tree.inorder());
             tree.remove(20);
-            assertEquals("5 10 15 100 ", tree.inorder());
+            Assert.assertEquals("5 10 15 100 ", tree.inorder());
             tree.remove(10);
-            assertEquals("5 15 100 ", tree.inorder());
+            Assert.assertEquals("5 15 100 ", tree.inorder());
         }
     }
 }

@@ -50,9 +50,9 @@ public class LiveConcert {
 
         @Test
         public void testMaxHappiness() {
-            assertEquals(23, maxHappiness(new int[]{10, 5, 6, 7, 1, 2}, new String[]{"ciel", "bessie", "john", "bessie", "bessie", "john"}));
-            assertEquals(4, maxHappiness(new int[]{3,3,4,3,3}, new String[]{"a", "a", "a", "a", "a"}));
-            assertEquals(100, maxHappiness(new int[]{100}, new String[]{"a"}));
+            Assert.assertEquals(23, maxHappiness(new int[]{10, 5, 6, 7, 1, 2}, new String[]{"ciel", "bessie", "john", "bessie", "bessie", "john"}));
+            Assert.assertEquals(4, maxHappiness(new int[]{3,3,4,3,3}, new String[]{"a", "a", "a", "a", "a"}));
+            Assert.assertEquals(100, maxHappiness(new int[]{100}, new String[]{"a"}));
         }
     }
 }
