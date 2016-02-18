@@ -4,3 +4,4 @@
 *.eml
 *.project
 bin/
+out/

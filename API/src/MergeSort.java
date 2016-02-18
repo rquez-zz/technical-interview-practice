@@ -1,10 +1,6 @@
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-
-/**
- * Created by ricardo on 10/5/15.
- */
 public class MergeSort {
     public static int[] sort(int[] array) {
 
