@@ -90,6 +90,5 @@ public class Garden {
             assertThat(solve(new String[]{"aaa", "aab"}), is(new String[]{}));
             assertThat(solve(new String[]{"abcdefghijklm", "nopqrstuvwxyz"}), is(new String[]{"abcdefghijklm", "zyxwvutsrqpon"}));
         }
-
     }
 }

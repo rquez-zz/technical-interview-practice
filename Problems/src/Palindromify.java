@@ -3,8 +3,10 @@ import java.util.Map;
 
 /**
  *
- *Given an array of strings with only lowercase letters , create a function that returns an array of those same strings,
- * but each string has its letters rearranged such that it becomes a palindrome (if possible, if not, return -1)
+ * Given an array of strings with only lowercase letters,
+ * create a function that returns an array of those same strings,
+ * but each string has its letters rearranged such that it becomes
+ * a palindrome (if possible, if not, return -1)
  *
  * TODO: Optimize!
  * Currently this runs in O(n * m + m) where n is the number of strings and m is the number of characters per string
